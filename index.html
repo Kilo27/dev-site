@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kyle Joyce — Software Engineer</title>
   <meta name="description" content="Kyle Joyce (Kyle Ó Seoighe) — software engineer from Cork, Ireland. From bare-metal C device drivers to Unity simulations and full-stack web. Immersive Software Engineering @ University of Limerick." />
@@ -24,10 +30,6 @@
 <body>
   <a class="skip-link" href="#work">Skip to content</a>
 
-  <!-- Animated background canvas -->
-  <canvas id="bg-canvas" aria-hidden="true"></canvas>
-  <div class="bg-glow" aria-hidden="true"></div>
-
   <!-- Navigation -->
   <header class="nav" id="nav">
     <div class="nav__inner">
@@ -49,6 +51,10 @@
         <a class="nav__icon" href="https://www.linkedin.com/in/kyle-joyce-a72b07309/" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
         </a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light and dark theme">
+          <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+          <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.3A8.3 8.3 0 1 1 9.7 4a6.6 6.6 0 0 0 10.3 10.3Z"/></svg>
+        </button>
         <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -155,6 +161,7 @@
 
     <!-- Journey / timeline -->
     <section class="section" id="journey">
+      <div class="journey__boat-bg reveal" id="journey-boat" aria-hidden="true"></div>
       <div class="section__head reveal">
         <span class="section__index">04</span>
         <h2 class="section__title">The journey so far</h2>
