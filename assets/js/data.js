@@ -56,7 +56,6 @@ const PROJECTS = [
     year: '2025',
     links: [{ label: 'Source', url: 'https://github.com/Kilo27/The-Forgotten-Soldier', icon: 'github' }],
     ga: {
-      name: 'An Saighdiúir Dearmadta',
       tagline: 'Inneall RPG 2T, tógtha ó bhonn i Java',
       desc: 'RPG eachtraíochta bunaithe ar thíleanna i Java glan — seomraí agus fo-sheomraí, córas fardail agus comhraic, NPCanna le comhrá craobhach, rindreáil sprites le maisc, agus sábháil / lódáil iomlán trí shraithiú oibiachtaí. Tionscadal ISE ó Nollaig 2025.',
       tags: ['Java', 'Inneall Cluiche', 'OOP', 'Sraithiú'],
@@ -165,11 +164,11 @@ const SKILLS = [
   },
   {
     title: 'Tools & Practice', items: ['Git', 'GitHub', 'Gradle', 'Agile', 'Data Analysis'],
-    ga: { title: 'Uirlisí agus Cleachtas', items: ['Git', 'GitHub', 'Gradle', 'Agile', 'Anailís Sonraí'] }
+    ga: { title: 'Uirlisí', items: ['Git', 'GitHub', 'Gradle', 'Agile', 'Anailís Sonraí'] }
   },
   {
     title: 'Spoken', items: ['English', 'Gaeilge · fluent (TEG B2)', 'Español · conversational'],
-    ga: { title: 'Labhartha', items: ['Béarla', 'Gaeilge · líofa (TEG B2)', 'Spáinnis · comhráiteach'] }
+    ga: { title: 'Na Teanga', items: ['Béarla', 'Gaeilge · líofa (TEG B2)', 'Spáinnis · comhráiteach'] }
   }
 ];
 
