@@ -241,6 +241,10 @@
   }
 
   /* ---------- language toggle (en ⇄ ga) ---------- */
+  /* Mirrors the lang-out / lang-in durations in styles.css; change both. */
+  const SWAP_OUT_MS = 150;
+  const SWAP_IN_MS = 320;
+
   /* The button advertises the language you'd get, not the one you're in. */
   function applyLanguage(lang) {
     I18N.applyStatic(lang);
@@ -248,18 +252,48 @@
     if (label) label.textContent = I18N.other(lang).toUpperCase();
   }
 
+  /* Injected content carries its own translations — rebuild it in place. */
+  function renderContent() {
+    renderProjects();
+    renderSkills();
+    renderTimeline();
+    typedRoles();
+  }
+
+  let swapping = false;
+
+  function switchLanguage() {
+    const next = I18N.other(I18N.current);
+    const root = document.documentElement;
+
+    if (prefersReduced) {
+      applyLanguage(I18N.set(next));
+      renderContent();
+      return;
+    }
+    // A second press mid-flight would swap under its own out-animation and
+    // land on the wrong language; ~470ms is short enough to just ignore it.
+    if (swapping) return;
+    swapping = true;
+
+    root.classList.add('is-lang-out');
+    setTimeout(() => {
+      applyLanguage(I18N.set(next));
+      renderContent();
+      // Both class changes in one tick: a frame rendered between them would
+      // flash the new text at full opacity before it animates in.
+      root.classList.remove('is-lang-out');
+      root.classList.add('is-lang-in');
+      setTimeout(() => {
+        root.classList.remove('is-lang-in');
+        swapping = false;
+      }, SWAP_IN_MS);
+    }, SWAP_OUT_MS);
+  }
+
   function langToggle() {
     const btn = $('#lang-toggle');
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-      const next = I18N.set(I18N.other(I18N.current));
-      applyLanguage(next);
-      // Injected content carries its own translations — rebuild it in place.
-      renderProjects();
-      renderSkills();
-      renderTimeline();
-      typedRoles();
-    });
+    if (btn) btn.addEventListener('click', switchLanguage);
   }
 
   /* ---------- boot ---------- */

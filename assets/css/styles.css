@@ -437,6 +437,31 @@ body::before {
 }
 .footer__made code { font-family: var(--font-mono); color: var(--accent); }
 
+/* ---------- language swap ----------
+   One motion across the page rather than a per-element shimmer: everything
+   carrying translated text lifts out together, the other language settles in
+   from below. Opacity and a few px of travel only — no blur, in keeping with
+   the flat poster look.
+
+   Durations are mirrored by SWAP_OUT_MS / SWAP_IN_MS in main.js; change both. */
+@keyframes lang-out {
+  to { opacity: 0; transform: translateY(-6px); }
+}
+@keyframes lang-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+/* Leaving is quicker than arriving, and eases in rather than out — the old
+   language should get out of the way, not linger. */
+:root.is-lang-out .lang-fade { animation: lang-out .15s ease-in forwards; }
+:root.is-lang-in  .lang-fade { animation: lang-in .32s var(--ease) both; }
+
+/* Both classes are removed once the swap lands, so no transform survives to
+   become a containing block for the sticky about card. */
+
+/* The label rolls within the button box rather than spilling out of it. */
+.lang-toggle { overflow: hidden; }
+
 /* ---------- reveal animation ---------- */
 .reveal, .reveal-child > * {
   opacity: 0; transform: translateY(14px);
