@@ -1,6 +1,11 @@
 /* =========================================================================
    Content data — curated from Kyle's GitHub (github.com/Kilo27) + resume.
    Edit here to update the site; markup is generated in main.js.
+
+   Each entry carries its Irish alongside its English in a `ga` block, so a
+   new project only ever needs editing in one place. Fields left out of `ga`
+   (project names, tech tags, place names that don't translate) fall back to
+   the English. UI chrome outside this file lives in i18n.js.
    ========================================================================= */
 
 /* Inline SVG icons (stroke uses currentColor) */
@@ -33,7 +38,14 @@ const PROJECTS = [
     tags: ['C', 'Linux', 'Makefile', 'Ultraleap', 'Systems'],
     year: '2026',
     wide: true,
-    links: [{ label: 'Source', url: 'https://github.com/Kilo27/device-driver', icon: 'github' }]
+    links: [{ label: 'Source', url: 'https://github.com/Kilo27/device-driver', icon: 'github' }],
+    ga: {
+      name: 'Tiománaí Gléis Leap Motion',
+      tagline: 'Smachtaigh do ríomhaire le croitheadh láimhe',
+      desc: 'Tiománaí gléis Linux don bhraiteoir gluaiseachta Ultraleap a iompaíonn gothaí láimhe ina n-orduithe córais — svaidhpeáil chun an airde a athrú, pinsigh chun úsáid na cuimhne a léamh, beir greim le haghaidh aga fónaimh, agus tarraing ciorcal chun na comhéadain líonra a scrúdú. Scríofa i C le tógáil Makefile agus ciseal comhéadain i spás an úsáideora.',
+      tags: ['C', 'Linux', 'Makefile', 'Ultraleap', 'Córais'],
+      linkLabels: ['Foinse']
+    }
   },
   {
     icon: 'sword',
@@ -42,7 +54,13 @@ const PROJECTS = [
     desc: 'A tile-based adventure RPG in pure Java — rooms and sub-rooms, an inventory and combat system, NPCs with branching dialogue, sprite rendering with masks, and full save / load through object serialization. ISE Project from December 2025',
     tags: ['Java', 'Game Engine', 'OOP', 'Serialization'],
     year: '2025',
-    links: [{ label: 'Source', url: 'https://github.com/Kilo27/The-Forgotten-Soldier', icon: 'github' }]
+    links: [{ label: 'Source', url: 'https://github.com/Kilo27/The-Forgotten-Soldier', icon: 'github' }],
+    ga: {
+      tagline: 'Inneall RPG 2T, tógtha ó bhonn i Java',
+      desc: 'RPG eachtraíochta bunaithe ar thíleanna i Java glan — seomraí agus fo-sheomraí, córas fardail agus comhraic, NPCanna le comhrá craobhach, rindreáil sprites le maisc, agus sábháil / lódáil iomlán trí shraithiú oibiachtaí. Tionscadal ISE ó Nollaig 2025.',
+      tags: ['Java', 'Inneall Cluiche', 'OOP', 'Sraithiú'],
+      linkLabels: ['Foinse']
+    }
   },
   {
     icon: 'planet',
@@ -51,7 +69,12 @@ const PROJECTS = [
     desc: 'Built at the NASA Space Apps Challenge in Athlone. A Unity simulation that procedurally generates the Earth — mesh, ocean and mantle — then pulls real Near-Earth-Object data to model asteroid trajectories and impacts, backed by a Python service and a companion web app.',
     tags: ['Unity', 'C#', 'ShaderLab', 'Python', 'NASA'],
     year: '2025',
-    links: [{ label: 'Source', url: 'https://github.com/Kilo27/NASA_METEOR_MADNESS_4', icon: 'github' }]
+    links: [{ label: 'Source', url: 'https://github.com/Kilo27/NASA_METEOR_MADNESS_4', icon: 'github' }],
+    ga: {
+      tagline: 'NASA Space Apps 2025 · insamhlóir tuairte astaróidigh',
+      desc: 'Tógtha ag an NASA Space Apps Challenge in Áth Luain. Insamhail Unity a ghineann an Domhan go nósimeachtúil — mogalra, aigéan agus maintlín — agus a tharraingíonn fíorshonraí faoi Réada gar-Domhain chun ruthaig agus tuairteanna astaróideach a mhúnlú, le seirbhís Python agus aip ghréasáin chompánach taobh thiar de.',
+      linkLabels: ['Foinse']
+    }
   },
   {
     icon: 'cpu',
@@ -60,7 +83,13 @@ const PROJECTS = [
     desc: 'A cross-platform desktop app for Windows, macOS and Linux that surfaces detailed system information — CPU, cache, disk, GPU, network and OS — in a clean, navigable interface. Built with Java and Gradle.',
     tags: ['Java', 'Gradle', 'Cross-platform', 'Desktop'],
     year: '2025',
-    links: [{ label: 'Source', url: 'https://github.com/Kilo27/SystemInfo', icon: 'github' }]
+    links: [{ label: 'Source', url: 'https://github.com/Kilo27/SystemInfo', icon: 'github' }],
+    ga: {
+      tagline: 'Do chrua-earraí ar an toirt, ar aon chóras oibriúcháin',
+      desc: 'Aip deisce trasardáin do Windows, macOS agus Linux a nochtann eolas mionsonraithe faoin gcóras — LAP, taisce, diosca, GPU, líonra agus an córas oibriúcháin — i gcomhéadan glan intreoraithe. Tógtha le Java agus Gradle.',
+      tags: ['Java', 'Gradle', 'Trasardáin', 'Deisce'],
+      linkLabels: ['Foinse']
+    }
   },
   {
     icon: 'chart',
@@ -69,7 +98,14 @@ const PROJECTS = [
     desc: 'My Leaving Certificate Computer Science project, awarded an H1. A React front-end paired with a Python back-end that web-scrapes data, generates predictions and reports on their accuracy — full-stack, end to end.',
     tags: ['React', 'Node.js', 'Python', 'Web Scraping'],
     year: '2025',
-    links: [{ label: 'Source', url: 'https://github.com/Kilo27/LCCSproject', icon: 'github' }]
+    links: [{ label: 'Source', url: 'https://github.com/Kilo27/LCCSproject', icon: 'github' }],
+    ga: {
+      name: 'Tionscadal Ríomheolaíochta na hArdteiste',
+      tagline: 'Grád H1 · aip thuartha ó thosach deireadh',
+      desc: 'Mo thionscadal Ríomheolaíochta don Ardteistiméireacht, ar bronnadh H1 air. Tosach React in éineacht le cúl Python a scrapálann sonraí ón ngréasán, a ghineann tuartha agus a thuairiscíonn ar a gcruinneas — ó thosach deireadh.',
+      tags: ['React', 'Node.js', 'Python', 'Scrapáil Ghréasáin'],
+      linkLabels: ['Foinse']
+    }
   },
   {
     icon: 'chat',
@@ -80,7 +116,14 @@ const PROJECTS = [
     year: '2026',
     badge: 'In development',
     soon: true,
-    links: [{ label: 'Coming soon', muted: true }]
+    links: [{ label: 'Coming soon', muted: true }],
+    ga: {
+      tagline: 'Ardán sóisialta don Ghaeilge',
+      desc: "Aip meán sóisialta Gaeilge a d'eascair as paisean do chaomhnú teanga — ag tabhairt spás nua-aimseartha beo ar líne don Ghaeilge. Á forbairt go gníomhach faoi láthair.",
+      tags: ['React', 'Gaeilge', 'Sóisialta', 'Ar siúl'],
+      badge: 'Á forbairt',
+      linkLabels: ['Ag teacht go luath']
+    }
   },
   {
     icon: 'rocket',
@@ -90,17 +133,43 @@ const PROJECTS = [
     tags: ['PCB Design', 'Embedded', 'Hardware', 'C'],
     badge: 'In progress',
     soon: true,
-    links: [{ label: 'In development', muted: true }]
+    links: [{ label: 'In development', muted: true }],
+    ga: {
+      name: 'Ríomhaire Eitilte Roicéid',
+      tagline: 'PCB agus bogearraí leabaithe · ag triall ar EuRoC',
+      desc: 'Ag dearadh na scéimreacha agus ag ródú an PCB do ríomhaire eitilte roicéid, agus é dírithe ar sheoladh ag an European Rocketry Challenge (EuRoC) — ag ceangal bogearraí leabaithe le fíorchrua-earraí.',
+      tags: ['Dearadh PCB', 'Leabaithe', 'Crua-earraí', 'C'],
+      badge: 'Ar siúl',
+      linkLabels: ['Á forbairt']
+    }
   }
 ];
 
 const SKILLS = [
-  { title: 'Languages', items: ['Python', 'C', 'C++', 'Java', 'Kotlin', 'JavaScript'] },
-  { title: 'Web', items: ['React', 'Node.js', 'HTML', 'CSS', 'REST'] },
-  { title: 'Mobile', items: ['Android', 'Kotlin', 'Android Studio'] },
-  { title: 'Systems & Hardware', items: ['Linux Drivers', 'Embedded C', 'PCB Design', 'Unity'] },
-  { title: 'Tools & Practice', items: ['Git', 'GitHub', 'Gradle', 'Agile', 'Data Analysis'] },
-  { title: 'Spoken', items: ['English', 'Gaeilge · fluent (TEG B2)', 'Español · conversational'] }
+  {
+    title: 'Languages', items: ['Python', 'C', 'C++', 'Java', 'Kotlin', 'JavaScript'],
+    ga: { title: 'Teangacha' }
+  },
+  {
+    title: 'Web', items: ['React', 'Node.js', 'HTML', 'CSS', 'REST'],
+    ga: { title: 'Gréasán' }
+  },
+  {
+    title: 'Mobile', items: ['Android', 'Kotlin', 'Android Studio'],
+    ga: { title: 'Móibíleach' }
+  },
+  {
+    title: 'Systems & Hardware', items: ['Linux Drivers', 'Embedded C', 'PCB Design', 'Unity'],
+    ga: { title: 'Córais agus Crua-earraí', items: ['Tiománaithe Linux', 'C Leabaithe', 'Dearadh PCB', 'Unity'] }
+  },
+  {
+    title: 'Tools & Practice', items: ['Git', 'GitHub', 'Gradle', 'Agile', 'Data Analysis'],
+    ga: { title: 'Uirlisí', items: ['Git', 'GitHub', 'Gradle', 'Agile', 'Anailís Sonraí'] }
+  },
+  {
+    title: 'Spoken', items: ['English', 'Gaeilge · fluent (TEG B2)', 'Español · conversational'],
+    ga: { title: 'Na Teanga', items: ['Béarla', 'Gaeilge · líofa (TEG B2)', 'Spáinnis · comhráiteach'] }
+  }
 ];
 
 const TIMELINE = [
@@ -108,49 +177,103 @@ const TIMELINE = [
     date: 'Sep 2025 — Present',
     title: 'MSc, Immersive Software Engineering',
     org: 'University of Limerick',
-    desc: 'A residency-based programme blending deep software engineering with entrepreneurship and communication.'
+    desc: 'A residency-based programme blending deep software engineering with entrepreneurship and communication.',
+    ga: {
+      date: 'M. Fómhair 2025 — Inniu',
+      title: 'MSc, Immersive Software Engineering',
+      org: 'Ollscoil Luimnigh',
+      desc: 'Clár bunaithe ar chónaitheachtaí a mheascann innealtóireacht dhomhain bhogearraí le fiontraíocht agus cumarsáid.'
+    }
   },
   {
     date: '2025',
     title: 'NASA Space Apps Challenge',
     org: 'Athlone, Ireland',
-    desc: 'Built “Meteor Madness”, a Unity asteroid-impact simulator, over a hackathon weekend.'
+    desc: 'Built “Meteor Madness”, a Unity asteroid-impact simulator, over a hackathon weekend.',
+    ga: {
+      org: 'Áth Luain, Éire',
+      desc: 'Thóg mé “Meteor Madness”, insamhlóir tuairte astaróidigh in Unity, thar dheireadh seachtaine haiceatóin.'
+    }
   },
   {
     date: '2025',
     title: 'ACI Worldwide FooBar',
     org: 'Programming competition',
-    desc: 'Progressed to Question 3 in ACI’s 2025 algorithmic challenge.'
+    desc: 'Progressed to Question 3 in ACI’s 2025 algorithmic challenge.',
+    ga: {
+      org: 'Comórtas ríomhchlárúcháin',
+      desc: 'Chuaigh mé chun cinn go Ceist 3 i ndúshlán algartamach ACI 2025.'
+    }
   },
   {
     date: '2025',
     title: 'Leaving Certificate — 554 points',
     org: 'Gaelcholáiste Charraig Uí Leighin, Cork',
-    desc: 'H1 in the Computer Science project; educated entirely through Irish.'
+    desc: 'H1 in the Computer Science project; educated entirely through Irish.',
+    ga: {
+      title: 'Ardteistiméireacht — 554 pointe',
+      org: 'Gaelcholáiste Charraig Uí Leighin, Corcaigh',
+      desc: 'H1 sa tionscadal Ríomheolaíochta; oideachas trí Ghaeilge ó thús deireadh.'
+    }
   },
   {
     date: 'Jan 2023 — Jun 2024',
     title: 'Coding Mentor',
     org: 'CoderDojo @ Cork Airport Business Park',
-    desc: 'Taught beginner & intermediate Python, C++ and JavaScript, guiding students through hands-on challenges.'
+    desc: 'Taught beginner & intermediate Python, C++ and JavaScript, guiding students through hands-on challenges.',
+    ga: {
+      date: 'Eanáir 2023 — Meitheamh 2024',
+      title: 'Meantóir Ríomhchlárúcháin',
+      org: 'CoderDojo @ Páirc Ghnó Aerfort Chorcaí',
+      desc: 'Mhúin mé Python, C++ agus JavaScript ar leibhéal tosaigh agus meánach, ag treorú daltaí trí dhúshláin phraiticiúla.'
+    }
   },
   {
     date: 'May 2023',
     title: 'Work Experience — IBM & Dell EMC',
     org: 'Cork',
-    desc: 'Saw how IBM’s Cloud Pak for Security is built and how exploits are found and handled; toured Dell EMC end to end.'
+    desc: 'Saw how IBM’s Cloud Pak for Security is built and how exploits are found and handled; toured Dell EMC end to end.',
+    ga: {
+      date: 'Bealtaine 2023',
+      title: 'Taithí Oibre — IBM agus Dell EMC',
+      org: 'Corcaigh',
+      desc: 'Chonaic mé conas a thógtar Cloud Pak for Security IBM agus conas a aimsítear agus a láimhseáiltear leochaileachtaí; thug mé cuairt ar Dell EMC ó thús deireadh.'
+    }
   },
   {
     date: 'Oct 2022',
     title: 'Work Experience — Wunderman Thompson',
     org: 'Copenhagen, Denmark',
-    desc: 'Watched global ad campaigns delivered across markets and languages for clients like Dell, Snapchat and Amazon.'
+    desc: 'Watched global ad campaigns delivered across markets and languages for clients like Dell, Snapchat and Amazon.',
+    ga: {
+      date: 'D. Fómhair 2022',
+      title: 'Taithí Oibre — Wunderman Thompson',
+      org: 'Cóbanhávan, an Danmhairg',
+      desc: 'Chonaic mé feachtais fógraíochta domhanda á seachadadh thar mhargaí agus theangacha do chliaint ar nós Dell, Snapchat agus Amazon.'
+    }
   }
 ];
 
 const BEYOND = [
-  { icon: 'sailMark', label: 'Irish Sailing approved Sailing Instructor', note: 'Racing in ILCA 6 - Monkstown Bay Sailing Club (MBSC) & Royal Cork Yacht Club (RCYC)' },
-  { icon: 'flagIE', label: 'Fluent Irish', note: 'TEG B2 · Maynooth' },
-  { icon: 'ship', label: 'Tour Guide', note: 'Titanic Experience, Cobh' },
-  { icon: 'medal', label: 'Gaisce Bronze', note: "President's Award" }
+  {
+    icon: 'sailMark',
+    label: 'Irish Sailing approved Sailing Instructor',
+    note: 'Racing in ILCA 6 - Monkstown Bay Sailing Club (MBSC) & Royal Cork Yacht Club (RCYC)',
+    ga: {
+      label: 'Teagascóir Seoltóireachta faofa ag Irish Sailing',
+      note: 'Ag rásaíocht in ILCA 6 - Club Seoltóireachta Chuan Bhaile na Manach (MBSC) agus Royal Cork Yacht Club (RCYC)'
+    }
+  },
+  {
+    icon: 'flagIE', label: 'Fluent Irish', note: 'TEG B2 · Maynooth',
+    ga: { label: 'Gaeilge líofa', note: 'TEG B2 · Maigh Nuad' }
+  },
+  {
+    icon: 'ship', label: 'Tour Guide', note: 'Titanic Experience, Cobh',
+    ga: { label: 'Treoraí Turas', note: 'Titanic Experience, an Cóbh' }
+  },
+  {
+    icon: 'medal', label: 'Gaisce Bronze', note: "President's Award",
+    ga: { label: 'Gaisce Cré-umha', note: 'Gradam an Uachtaráin' }
+  }
 ];

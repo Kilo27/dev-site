@@ -9,27 +9,34 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+  /* Content fields resolve through I18N so a re-render is all a language
+     switch costs; untranslated fields fall back to English automatically. */
+  const f = (item, field) => I18N.f(item, field);
+
   /* ---------- render: projects ---------- */
   function renderProjects() {
     const wrap = $('#projects');
     if (!wrap || typeof PROJECTS === 'undefined') return;
     wrap.classList.add('reveal-child');
     wrap.innerHTML = PROJECTS.map((p) => {
-      const links = p.links.map((l) => l.muted
-        ? `<span class="card__link card__link--muted">${l.label}</span>`
-        : `<a class="card__link" href="${l.url}" target="_blank" rel="noopener">${l.label} ${ICONS[l.icon] || ICONS.arrow}</a>`
-      ).join('');
-      const tags = p.tags.map((t) => `<span class="tag">${t}</span>`).join('');
-      const badge = p.badge ? `<span class="card__badge">${p.badge}</span>` : `<span class="card__year">${p.year}</span>`;
+      const labels = f(p, 'linkLabels') || [];
+      const links = p.links.map((l, i) => {
+        const label = labels[i] || l.label;
+        return l.muted
+          ? `<span class="card__link card__link--muted">${label}</span>`
+          : `<a class="card__link" href="${l.url}" target="_blank" rel="noopener">${label} ${ICONS[l.icon] || ICONS.arrow}</a>`;
+      }).join('');
+      const tags = I18N.a(p, 'tags').map((t) => `<span class="tag">${t}</span>`).join('');
+      const badge = p.badge ? `<span class="card__badge">${f(p, 'badge')}</span>` : `<span class="card__year">${p.year}</span>`;
       return `
         <article class="card ${p.wide ? 'card--wide' : ''} ${p.soon ? 'card--soon' : ''}">
           <div class="card__top">
             <div class="card__icon">${ICONS[p.icon]}</div>
             ${badge}
           </div>
-          <h3 class="card__name">${p.name}</h3>
-          <p class="card__tagline">${p.tagline}</p>
-          <p class="card__desc">${p.desc}</p>
+          <h3 class="card__name">${f(p, 'name')}</h3>
+          <p class="card__tagline">${f(p, 'tagline')}</p>
+          <p class="card__desc">${f(p, 'desc')}</p>
           <div class="card__tags">${tags}</div>
           <div class="card__links">${links}</div>
         </article>`;
@@ -43,8 +50,8 @@
     wrap.classList.add('reveal-child');
     wrap.innerHTML = SKILLS.map((g) => `
       <div class="skill-group">
-        <h3>${g.title}</h3>
-        <div class="chips">${g.items.map((i) => `<span class="chip">${i}</span>`).join('')}</div>
+        <h3>${f(g, 'title')}</h3>
+        <div class="chips">${I18N.a(g, 'items').map((i) => `<span class="chip">${i}</span>`).join('')}</div>
       </div>`).join('');
   }
 
@@ -55,10 +62,10 @@
       wrap.classList.add('reveal-child');
       wrap.innerHTML = TIMELINE.map((t) => `
         <li class="tl-item">
-          <span class="tl-date">${t.date}</span>
-          <h3 class="tl-title">${t.title}</h3>
-          <span class="tl-org">${t.org}</span>
-          <p class="tl-desc">${t.desc}</p>
+          <span class="tl-date">${f(t, 'date')}</span>
+          <h3 class="tl-title">${f(t, 'title')}</h3>
+          <span class="tl-org">${f(t, 'org')}</span>
+          <p class="tl-desc">${f(t, 'desc')}</p>
         </li>`).join('');
     }
     const beyond = $('#beyond');
@@ -67,8 +74,8 @@
       beyond.innerHTML = BEYOND.map((b) => `
         <div class="beyond__item">
           <div class="beyond__icon">${ICONS[b.icon]}</div>
-          <div class="beyond__label">${b.label}</div>
-          <div class="beyond__note">${b.note}</div>
+          <div class="beyond__label">${f(b, 'label')}</div>
+          <div class="beyond__note">${f(b, 'note')}</div>
         </div>`).join('');
     }
     const boatBg = $('#journey-boat');
@@ -76,17 +83,17 @@
   }
 
   /* ---------- typed roles ---------- */
+  /* Bumped on every (re)start so timers from the previous language die off
+     instead of typing over the new ones. */
+  let typedRun = 0;
+
   function typedRoles() {
     const el = $('#typed');
     const prefixEl = $('.hero__roles-prefix');
     if (!el) return;
-    const roles = [
-      { prefix: 'I build', text: 'systems software in C' },
-      { prefix: 'I build', text: 'games & simulations' },
-      { prefix: 'I build', text: 'full-stack web apps' },
-      { prefix: 'I build', text: 'hardware & PCBs' },
-      { prefix: 'Cruthaím', text: 'earraí as Gaeilge' }
-    ];
+    const roles = I18N.roles();
+    const run = ++typedRun;
+
     if (prefersReduced) {
       if (prefixEl) prefixEl.textContent = roles[0].prefix;
       el.textContent = roles[0].text;
@@ -95,6 +102,7 @@
 
     let ri = 0, ci = 0, deleting = false;
     function tick() {
+      if (run !== typedRun) return;
       const role = roles[ri];
       if (prefixEl) prefixEl.textContent = role.prefix;
       el.textContent = role.text.slice(0, ci);
@@ -148,16 +156,41 @@
     window.addEventListener('scroll', onScroll, { passive: true });
 
     if (toggle && links) {
-      toggle.addEventListener('click', () => {
-        const open = links.classList.toggle('is-open');
+      // Must track the width the drawer collapses at in styles.css.
+      const mq = window.matchMedia('(max-width: 860px)');
+      let openedAt = 0;
+
+      const isOpen = () => links.classList.contains('is-open');
+      const setMenu = (open) => {
+        links.classList.toggle('is-open', open);
         toggle.classList.toggle('is-open', open);
         toggle.setAttribute('aria-expanded', String(open));
+        if (open) openedAt = window.scrollY;
+      };
+
+      toggle.addEventListener('click', () => setMenu(!isOpen()));
+      $$('a', links).forEach((a) => a.addEventListener('click', () => setMenu(false)));
+
+      // A drawer you can only close by hitting the same 44px button again is a
+      // trap on a phone. Give it the three exits people actually reach for:
+      // tap-away, Escape, and scrolling on past it.
+      document.addEventListener('click', (e) => {
+        if (isOpen() && !links.contains(e.target) && !toggle.contains(e.target)) setMenu(false);
       });
-      $$('a', links).forEach((a) => a.addEventListener('click', () => {
-        links.classList.remove('is-open');
-        toggle.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen()) { setMenu(false); toggle.focus(); }
+      });
+      // Threshold, not any movement: iOS fires a scroll when its address bar
+      // collapses, which would otherwise snap the menu shut on open.
+      window.addEventListener('scroll', () => {
+        if (isOpen() && Math.abs(window.scrollY - openedAt) > 40) setMenu(false);
+      }, { passive: true });
+
+      // Rotating to landscape puts the links back in the bar; drop the drawer
+      // state so it can't come back mid-open.
+      const onBreakpoint = () => { if (!mq.matches) setMenu(false); };
+      if (mq.addEventListener) mq.addEventListener('change', onBreakpoint);
+      else if (mq.addListener) mq.addListener(onBreakpoint);
     }
 
     // active section highlight
@@ -179,6 +212,21 @@
     }
   }
 
+  /* ---------- mobile browser chrome ---------- */
+  /* Paints the phone's status/address bar to match --bg, so the site doesn't sit
+     in a white frame on a dark page. Written from JS rather than as a static tag
+     so it can't drift from the palette when the theme flips. */
+  function syncBrowserChrome() {
+    let meta = $('meta[name="theme-color"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.setAttribute('name', 'theme-color');
+      document.head.appendChild(meta);
+    }
+    const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+    if (bg) meta.setAttribute('content', bg);
+  }
+
   /* ---------- theme toggle (dark by default, light optional) ---------- */
   function themeToggle() {
     const btn = $('#theme-toggle');
@@ -188,18 +236,78 @@
       const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       root.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
+      syncBrowserChrome();
     });
+  }
+
+  /* ---------- language toggle (en ⇄ ga) ---------- */
+  /* Mirrors the lang-out / lang-in durations in styles.css; change both. */
+  const SWAP_OUT_MS = 150;
+  const SWAP_IN_MS = 320;
+
+  /* The button advertises the language you'd get, not the one you're in. */
+  function applyLanguage(lang) {
+    I18N.applyStatic(lang);
+    const label = $('#lang-toggle-label');
+    if (label) label.textContent = I18N.other(lang).toUpperCase();
+  }
+
+  /* Injected content carries its own translations — rebuild it in place. */
+  function renderContent() {
+    renderProjects();
+    renderSkills();
+    renderTimeline();
+    typedRoles();
+  }
+
+  let swapping = false;
+
+  function switchLanguage() {
+    const next = I18N.other(I18N.current);
+    const root = document.documentElement;
+
+    if (prefersReduced) {
+      applyLanguage(I18N.set(next));
+      renderContent();
+      return;
+    }
+    // A second press mid-flight would swap under its own out-animation and
+    // land on the wrong language; ~470ms is short enough to just ignore it.
+    if (swapping) return;
+    swapping = true;
+
+    root.classList.add('is-lang-out');
+    setTimeout(() => {
+      applyLanguage(I18N.set(next));
+      renderContent();
+      // Both class changes in one tick: a frame rendered between them would
+      // flash the new text at full opacity before it animates in.
+      root.classList.remove('is-lang-out');
+      root.classList.add('is-lang-in');
+      setTimeout(() => {
+        root.classList.remove('is-lang-in');
+        swapping = false;
+      }, SWAP_IN_MS);
+    }, SWAP_OUT_MS);
+  }
+
+  function langToggle() {
+    const btn = $('#lang-toggle');
+    if (btn) btn.addEventListener('click', switchLanguage);
   }
 
   /* ---------- boot ---------- */
   function init() {
     $('#year').textContent = new Date().getFullYear();
+    applyLanguage(I18N.current);
     renderProjects();
     renderSkills();
     renderTimeline();
     typedRoles();
     navBehaviour();
     themeToggle();
+    langToggle();
+    syncBrowserChrome();
     // reveal must run after content injection
     revealOnScroll();
     // count-up when hero visible

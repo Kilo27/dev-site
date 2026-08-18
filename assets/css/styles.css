@@ -35,6 +35,11 @@
 
   --ease: cubic-bezier(.16, 1, .3, 1);
   --off:  6px; /* hard-shadow offset unit */
+
+  /* tells the UA to render scrollbars/controls to match — and stops mobile
+     browsers flashing a hard blue box over every tapped link */
+  color-scheme: dark;
+  -webkit-tap-highlight-color: rgba(255, 90, 72, .18);
 }
 
 :root[data-theme="light"] {
@@ -53,6 +58,9 @@
 
   --shadow-ink: var(--text);
   --grid-line:  rgba(22, 21, 15, 0.05);
+
+  color-scheme: light;
+  -webkit-tap-highlight-color: rgba(214, 41, 28, .16);
 }
 
 /* ---------- reset ---------- */
@@ -72,6 +80,7 @@ body {
   font-size: 17px;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  overflow-wrap: break-word; /* long unbroken strings must never widen the page */
   position: relative;
   transition: background-color .25s var(--ease), color .25s var(--ease);
 }
@@ -135,7 +144,7 @@ body::before {
   background: var(--text); color: var(--bg); font-weight: 700; font-size: .92rem;
   transition: background .2s, color .2s;
 }
-.nav__logo:hover .nav__mark { background: var(--accent); color: var(--on-accent); }
+@media (hover: hover) { .nav__logo:hover .nav__mark { background: var(--accent); color: var(--on-accent); } }
 .nav__name { font-size: .98rem; letter-spacing: .01em; }
 .nav__links { display: flex; gap: 30px; }
 .nav__links a {
@@ -147,32 +156,41 @@ body::before {
   content: ""; position: absolute; left: 0; bottom: -6px; height: 2px; width: 0;
   background: var(--accent); transition: width .25s var(--ease);
 }
-.nav__links a:hover, .nav__links a.is-active { color: var(--text); }
+.nav__links a.is-active { color: var(--text); }
 .nav__links a.is-active::after { width: 100%; }
+@media (hover: hover) { .nav__links a:hover { color: var(--text); } }
 .nav__side { display: flex; align-items: center; gap: 16px; }
 .nav__icon { color: var(--text-muted); transition: color .2s, transform .2s; display: grid; place-items: center; }
-.nav__icon:hover { color: var(--accent); transform: translateY(-2px); }
+@media (hover: hover) { .nav__icon:hover { color: var(--accent); transform: translateY(-2px); } }
 
-.theme-toggle {
+.theme-toggle, .lang-toggle {
   display: grid; place-items: center; width: 32px; height: 32px;
   border: 1.5px solid var(--border-strong); border-radius: var(--radius-sm);
   background: transparent; color: var(--text-muted); cursor: pointer;
   transition: color .2s, border-color .2s, transform .2s;
 }
-.theme-toggle:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+@media (hover: hover) {
+  .theme-toggle:hover, .lang-toggle:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+}
+.lang-toggle__label {
+  font-family: var(--font-mono); font-size: .68rem; font-weight: 500;
+  letter-spacing: .06em; line-height: 1;
+}
 .theme-toggle svg { width: 16px; height: 16px; }
 .theme-toggle__sun, .theme-toggle__moon { display: none; }
 :root[data-theme="dark"] .theme-toggle__sun { display: block; }
 :root[data-theme="light"] .theme-toggle__moon { display: block; }
 
-.nav__toggle { display: none; background: none; border: 0; cursor: pointer; width: 40px; height: 40px; position: relative; }
+/* 44px square: this control only ever appears on touch, so it's sized to the
+   thumb rather than to the glyph. Bars are centred on that box. */
+.nav__toggle { display: none; background: none; border: 0; cursor: pointer; width: 44px; height: 44px; position: relative; padding: 0; }
 .nav__toggle span {
-  display: block; position: absolute; left: 9px; right: 9px; height: 2px;
+  display: block; position: absolute; left: 11px; right: 11px; height: 2px;
   background: var(--text); transition: transform .3s var(--ease), opacity .2s;
 }
-.nav__toggle span:nth-child(1) { top: 14px; }
-.nav__toggle span:nth-child(2) { top: 19px; }
-.nav__toggle span:nth-child(3) { top: 24px; }
+.nav__toggle span:nth-child(1) { top: 16px; }
+.nav__toggle span:nth-child(2) { top: 21px; }
+.nav__toggle span:nth-child(3) { top: 26px; }
 .nav__toggle.is-open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
 .nav__toggle.is-open span:nth-child(2) { opacity: 0; }
 .nav__toggle.is-open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
@@ -189,12 +207,21 @@ body::before {
   background: var(--text); color: var(--bg);
   box-shadow: var(--off) var(--off) 0 var(--accent);
 }
-.btn--primary:hover { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--accent); }
+@media (hover: hover) { .btn--primary:hover { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--accent); } }
 .btn--ghost {
   background: var(--surface); color: var(--text);
   box-shadow: var(--off) var(--off) 0 var(--shadow-ink);
 }
-.btn--ghost:hover { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--shadow-ink); border-color: var(--accent); color: var(--accent); }
+@media (hover: hover) { .btn--ghost:hover { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--shadow-ink); border-color: var(--accent); color: var(--accent); } }
+
+/* Touch has no hover to telegraph "this is pressable", so give buttons a real
+   press state instead. */
+@media (hover: none) {
+  .btn:active { transform: translate(3px, 3px); }
+  .btn--primary:active { box-shadow: 3px 3px 0 var(--accent); }
+  .btn--ghost:active { box-shadow: 3px 3px 0 var(--shadow-ink); }
+  .card:active, .skill-group:active, .beyond__item:active { border-color: var(--accent); }
+}
 
 /* ---------- hero ---------- */
 .hero {
@@ -210,7 +237,7 @@ body::before {
   display: block; border-radius: 2px; box-shadow: 0 0 0 1px var(--border-strong);
   transition: transform .2s var(--ease);
 }
-.flag-icon:hover { transform: translateY(-2px); }
+@media (hover: hover) { .flag-icon:hover { transform: translateY(-2px); } }
 .hero__eyebrow .dot {
   width: 7px; height: 7px; background: var(--accent);
   animation: blink 1.6s steps(2) infinite;
@@ -260,7 +287,11 @@ body::before {
   animation: scrolldot 1.8s var(--ease) infinite;
 }
 @keyframes scrolldot { 0% { opacity: 0; top: 0; } 40% { opacity: 1; } 80% { opacity: 0; top: 40px; } 100% { opacity: 0; } }
-@media (min-height: 720px) { .hero__scroll { display: block; } }
+/* Needs vertical room *and* a wide enough column: on a phone the hero stack is
+   taller than the viewport, so the cue and its "SCROLL" label landed on top of
+   the stats row. There's nothing to hint at on mobile anyway — you're already
+   scrolling. */
+@media (min-height: 720px) and (min-width: 700px) { .hero__scroll { display: block; } }
 
 /* ---------- hard-shadow panel system (about card, project cards, skills, beyond) ---------- */
 .about__card, .card, .skill-group, .beyond__item {
@@ -271,9 +302,14 @@ body::before {
   transition: transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease),
               background-color .25s var(--ease);
 }
-.card, .skill-group, .beyond__item { will-change: transform; }
-.card:hover, .skill-group:hover, .beyond__item:hover {
-  transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--accent); border-color: var(--accent);
+/* Hover-driven lift. Gated on a real pointer: on touch, :hover latches after a
+   tap and leaves cards stuck in the pressed state until you tap elsewhere.
+   No `will-change` here either — it held ~17 permanent compositor layers on a
+   page whose transform only ever runs under a mouse. */
+@media (hover: hover) {
+  .card:hover, .skill-group:hover, .beyond__item:hover {
+    transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--accent); border-color: var(--accent);
+  }
 }
 
 /* ---------- about ---------- */
@@ -300,7 +336,7 @@ body::before {
   background: var(--surface); border: 1.5px solid var(--text); color: var(--text);
   transition: background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease);
 }
-.card:hover .card__icon { background: var(--text); color: var(--bg); border-color: var(--accent); }
+@media (hover: hover) { .card:hover .card__icon { background: var(--text); color: var(--bg); border-color: var(--accent); } }
 .card__icon svg { width: 26px; height: 26px; }
 .card__year { font-family: var(--font-mono); font-size: .78rem; color: var(--text-dim); }
 .card__badge {
@@ -323,7 +359,7 @@ body::before {
   display: inline-flex; align-items: center; gap: 7px; font-size: .9rem; font-weight: 600; color: var(--text);
   transition: color .2s, gap .2s;
 }
-.card__link:hover { color: var(--accent); gap: 11px; }
+@media (hover: hover) { .card__link:hover { color: var(--accent); gap: 11px; } }
 .card__link svg { width: 16px; height: 16px; }
 .card__link--muted { color: var(--text-dim); font-weight: 500; cursor: default; }
 
@@ -341,7 +377,7 @@ body::before {
   border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 6px 12px;
   transition: color .2s, border-color .2s, background .2s;
 }
-.chip:hover { color: var(--on-accent); border-color: var(--accent); background: var(--accent); }
+@media (hover: hover) { .chip:hover { color: var(--on-accent); border-color: var(--accent); background: var(--accent); } }
 
 /* ---------- journey watermark ---------- */
 #journey { position: relative; z-index: 0; overflow: hidden; }
@@ -378,7 +414,7 @@ body::before {
   transition: background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease);
 }
 .beyond__icon svg { width: 42px; height: 42px; }
-.beyond__item:hover .beyond__icon { background: var(--text); color: var(--bg); border-color: var(--accent); }
+@media (hover: hover) { .beyond__item:hover .beyond__icon { background: var(--text); color: var(--bg); border-color: var(--accent); } }
 .beyond__label { font-family: var(--font-head); font-weight: 600; font-size: .98rem; }
 .beyond__note { color: var(--text-dim); font-size: .84rem; margin-top: 4px; }
 
@@ -401,6 +437,31 @@ body::before {
 }
 .footer__made code { font-family: var(--font-mono); color: var(--accent); }
 
+/* ---------- language swap ----------
+   One motion across the page rather than a per-element shimmer: everything
+   carrying translated text lifts out together, the other language settles in
+   from below. Opacity and a few px of travel only — no blur, in keeping with
+   the flat poster look.
+
+   Durations are mirrored by SWAP_OUT_MS / SWAP_IN_MS in main.js; change both. */
+@keyframes lang-out {
+  to { opacity: 0; transform: translateY(-6px); }
+}
+@keyframes lang-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+/* Leaving is quicker than arriving, and eases in rather than out — the old
+   language should get out of the way, not linger. */
+:root.is-lang-out .lang-fade { animation: lang-out .15s ease-in forwards; }
+:root.is-lang-in  .lang-fade { animation: lang-in .32s var(--ease) both; }
+
+/* Both classes are removed once the swap lands, so no transform survives to
+   become a containing block for the sticky about card. */
+
+/* The label rolls within the button box rather than spilling out of it. */
+.lang-toggle { overflow: hidden; }
+
 /* ---------- reveal animation ---------- */
 .reveal, .reveal-child > * {
   opacity: 0; transform: translateY(14px);
@@ -418,6 +479,13 @@ body::before {
 }
 
 /* ---------- responsive ---------- */
+
+/* The wordmark is the first thing to go: "Kyle Ó Seoighe" is a third wider than
+   "Kyle Joyce", and the KJ mark beside it already says the same thing. */
+@media (max-width: 1024px) {
+  .nav__name { display: none; }
+}
+
 @media (max-width: 860px) {
   .about { grid-template-columns: 1fr; }
   .about__card { position: static; }
@@ -425,20 +493,86 @@ body::before {
   .card--wide { grid-column: span 1; }
   .skills { grid-template-columns: 1fr 1fr; }
   .beyond { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 620px) {
-  body { font-size: 16px; }
+
+  /* The bar collapses here, not at 620, because five links plus five controls
+     stop fitting well before phone widths: at 640px the row ran ~137px past the
+     viewport and .nav__side was clipped off-screen. Irish makes it worse
+     (Scileanna/Teagmháil), so the drawer takes over at the same width the page
+     already drops to a single column. */
+  .nav__toggle { display: block; }
+
+  /* Absolute inside the fixed .nav, so the drawer hangs off whatever the bar
+     actually measures. The old `position: fixed; top: 69px` was a guess at that
+     height and sat ~4px under it — and every control added to .nav__side (the
+     language toggle, say) pushed the guess further out. */
   .nav__links {
-    position: fixed; inset: 0 0 auto 0; top: 69px; flex-direction: column; gap: 0;
+    position: absolute; inset: 100% 0 auto 0; flex-direction: column; gap: 0;
     background: var(--bg); padding: 8px var(--pad) 20px; border-bottom: 1px solid var(--border);
-    transform: translateY(-120%); opacity: 0; pointer-events: none; transition: transform .3s var(--ease), opacity .25s;
+    max-height: calc(100svh - 100%); overflow-y: auto; overscroll-behavior: contain;
+    transform: translateY(-120%); opacity: 0; pointer-events: none;
+    /* visibility keeps the closed drawer out of the tab order and the a11y tree —
+       opacity alone still let you Tab into off-screen links. Delayed on close so
+       it doesn't cut the slide short. */
+    visibility: hidden;
+    transition: transform .3s var(--ease), opacity .25s, visibility 0s .3s;
   }
-  .nav__links.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .nav__links.is-open {
+    transform: translateY(0); opacity: 1; pointer-events: auto; visibility: visible;
+    transition: transform .3s var(--ease), opacity .25s, visibility 0s;
+  }
   .nav__links a { padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 1rem; }
   .nav__links a::after { display: none; }
-  .nav__name { display: none; }
-  .nav__toggle { display: block; }
+}
+
+@media (max-width: 620px) {
+  body { font-size: 16px; }
   .skills { grid-template-columns: 1fr; }
-  .beyond { grid-template-columns: 1fr 1fr; }
-  .hero__stats { gap: 24px; }
+
+  /* Trim the stack so the hero clears a 812px-tall phone instead of spilling
+     ~30px past the fold. */
+  .hero { padding: 100px var(--pad) 56px; }
+
+  /* Was flex-wrap, which broke 3 stats onto 2 ragged rows. A 3-up grid keeps
+     them on one line and saves ~65px of hero height. */
+  .hero__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 44px; }
+  .hero__stats li { padding-left: 10px; }
+  .hero__stat-label { font-size: .68rem; line-height: 1.35; }
+
+  /* Two columns left these ~130px wide: the longest note wrapped to six lines
+     and stretched its row-mate to 400px of mostly dead space. One column, with
+     the icon beside the text rather than above it, stays compact. */
+  .beyond { grid-template-columns: 1fr; gap: 14px; }
+  .beyond__item {
+    display: grid; grid-template-columns: auto 1fr;
+    grid-template-areas: "icon label" "icon note";
+    align-items: center; column-gap: 16px; padding: 16px 18px;
+  }
+  .beyond__icon { grid-area: icon; width: 54px; height: 54px; margin-bottom: 0; }
+  .beyond__icon svg { width: 34px; height: 34px; }
+  .beyond__label { grid-area: label; align-self: end; }
+  .beyond__note { grid-area: note; align-self: start; }
+
+  /* Label and value fought over ~130px, wrapping the longer values to three
+     lines against a right edge. Stack them instead. */
+  .about__card { padding: 6px 20px; }
+  .about__card-row { flex-direction: column; align-items: flex-start; gap: 2px; padding: 11px 0; }
+  .about__card-row span, .about__card-row strong { line-height: 1.4; }
+  .about__card-row strong { text-align: left; }
+
+  .card { padding: 22px 20px; }
+  .contact__links .btn, .hero__cta .btn { flex: 1 1 auto; justify-content: center; }
+}
+
+/* ---------- touch sizing ----------
+   Keyed off the pointer rather than the viewport, so a touch tablet gets the
+   larger targets too. Nav controls were 20–32px against a ~44px guideline. */
+@media (pointer: coarse) {
+  /* Five 44px controls plus the logo comes to exactly the content width at
+     320px. Let the gap shrink with the viewport so the bar keeps some slack
+     (and survives another control being added). */
+  .nav__side { gap: clamp(2px, 1vw, 6px); }
+  .nav__side > a, .nav__side > button { min-width: 44px; min-height: 44px; }
+  .nav__icon { width: 44px; height: 44px; }
+  .nav__logo { min-height: 44px; }
+  .card__link { min-height: 44px; }
 }
