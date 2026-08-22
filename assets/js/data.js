@@ -111,7 +111,7 @@ const PROJECTS = [
     icon: 'chat',
     name: 'Ardán',
     tagline: 'A social platform for the Irish language',
-    desc: 'An Irish-language social media app born from a passion for language conservation — giving Gaeilge a modern, living space online. Currently in active development.',
+    desc: 'An Irish-language social media app born from a passion for language conservation — giving Irish a modern, living space online. Currently in active development.',
     tags: ['React', 'Gaeilge', 'Social', 'In progress'],
     year: '2026',
     badge: 'In development',
