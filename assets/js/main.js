@@ -1,5 +1,5 @@
 /* =========================================================================
-   Kyle Joyce — site behaviour
+   Kyle Joyce - site behaviour
    Rendering + motion. Vanilla JS, no dependencies.
    ========================================================================= */
 (function () {
@@ -252,7 +252,7 @@
     if (label) label.textContent = I18N.other(lang).toUpperCase();
   }
 
-  /* Injected content carries its own translations — rebuild it in place. */
+  /* Injected content carries its own translations - rebuild it in place. */
   function renderContent() {
     renderProjects();
     renderSkills();

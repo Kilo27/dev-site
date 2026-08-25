@@ -1,8 +1,8 @@
 /* =========================================================================
-   Bilingual layer — English (en) / Gaeilge (ga)
+   Bilingual layer - English (en) / Gaeilge (ga)
    UI strings live here; page content lives in data.js under each item's
    `ga` block. Values may contain inline HTML and are injected with
-   innerHTML — they are author-written constants, never user input.
+   innerHTML - they are author-written constants, never user input.
    ========================================================================= */
 
 const LANGS = ['en', 'ga'];
@@ -10,15 +10,15 @@ const LANG_KEY = 'lang';
 
 const STRINGS = {
   en: {
-    'meta.title': 'Kyle Joyce — Software Engineer',
-    'meta.desc': "Kyle Joyce (Kyle Ó Seoighe) — software engineer from Cork, Ireland. From bare-metal C device drivers to Unity simulations and full-stack web. Immersive Software Engineering @ University of Limerick.",
+    'meta.title': 'Kyle Joyce - Software Engineer',
+    'meta.desc': "Kyle Joyce (Kyle Ó Seoighe) - software engineer from Cork, Ireland. From bare-metal C device drivers to Unity simulations and full-stack web. Immersive Software Engineering @ University of Limerick.",
 
     'a11y.skip': 'Skip to content',
     'a11y.home': 'Home',
     'a11y.primaryNav': 'Primary',
     'a11y.theme': 'Toggle light and dark theme',
     'a11y.menu': 'Toggle menu',
-    'a11y.lang': 'Athraigh go Gaeilge — switch to Irish',
+    'a11y.lang': 'Athraigh go Gaeilge - switch to Irish',
     'a11y.scroll': 'Scroll to about',
 
     'nav.name': 'Kyle&nbsp;Joyce',
@@ -41,7 +41,7 @@ const STRINGS = {
 
     'about.title': 'About',
     'about.p1': "Born and raised in <strong>Cork city</strong>, I'm a software engineering student on the <strong>Immersive Software Engineering (MSc)</strong> programme at the University of Limerick, where the focus is as much on entrepreneurship and communication as it is on code.",
-    'about.p2': "I like working across the whole stack of computing — one week it's a <strong>Linux device driver in C</strong>, the next it's a <strong>Unity physics simulation</strong>, a <strong>React front-end</strong>, or routing a <strong>PCB for a rocket flight computer</strong>. I got my start teaching younger students to code at CoderDojo, and I still love breaking hard ideas down into simple ones.",
+    'about.p2': "I like working across the whole stack of computing - one week it's a <strong>Linux device driver in C</strong>, the next it's a <strong>Unity physics simulation</strong>, a <strong>React front-end</strong>, or routing a <strong>PCB for a rocket flight computer</strong>. I got my start teaching younger students to code at CoderDojo, and I still love breaking hard ideas down into simple ones.",
     'about.p3': "I'm a fluent Irish speaker and currently building <strong>Ardán</strong>, a social platform for the language. I'm also a qualified sailing instructor, teaching out of Monkstown Bay and Cove Sailing Club.",
     'about.basedKey': 'Based in',
     'about.basedVal': 'Cork, Ireland',
@@ -63,22 +63,22 @@ const STRINGS = {
     'journey.beyond': 'A few other things',
 
     'contact.title': "Let's build something.",
-    'contact.lead': 'Open to internships, collaborations and interesting problems — especially anything touching systems, hardware, games or the Irish language.',
+    'contact.lead': 'Open to internships, collaborations and interesting problems - especially anything touching systems, hardware, games or the Irish language.',
     'contact.email': 'Email me',
 
-    'footer.made': 'Built by hand — just not mine. Thanks, Claude!'
+    'footer.made': 'Built by hand - just not mine. Thanks, Claude!'
   },
 
   ga: {
-    'meta.title': 'Kyle Ó Seoighe — Innealtóir Bogearraí',
-    'meta.desc': 'Kyle Ó Seoighe (Kyle Joyce) — innealtóir bogearraí as Corcaigh, Éire. Ó thiománaithe gléis C ar an lom-mhiotal go hinsamhaltaí Unity agus forbairt ghréasáin iomlán. Immersive Software Engineering @ Ollscoil Luimnigh.',
+    'meta.title': 'Kyle Ó Seoighe - Innealtóir Bogearraí',
+    'meta.desc': 'Kyle Ó Seoighe (Kyle Joyce) - innealtóir bogearraí as Corcaigh, Éire. Ó thiománaithe gléis C ar an lom-mhiotal go hinsamhaltaí Unity agus forbairt ghréasáin iomlán. Immersive Software Engineering @ Ollscoil Luimnigh.',
 
     'a11y.skip': 'Téigh go dtí an t-ábhar',
     'a11y.home': 'Baile',
     'a11y.primaryNav': 'Príomhnascleanúint',
     'a11y.theme': 'Athraigh idir an téama sorcha agus dorcha',
     'a11y.menu': 'Oscail nó dún an roghchlár',
-    'a11y.lang': 'Switch to English — athraigh go Béarla',
+    'a11y.lang': 'Switch to English - athraigh go Béarla',
     'a11y.scroll': 'Scrollaigh síos go dtí Fúm',
 
     'nav.name': 'Kyle&nbsp;Ó&nbsp;Seoighe',
@@ -101,7 +101,7 @@ const STRINGS = {
 
     'about.title': 'Fúm',
     'about.p1': 'Rugadh agus tógadh i <strong>gcathair Chorcaí</strong> mé, agus is mac léinn innealtóireachta bogearraí mé ar an gclár <strong>Immersive Software Engineering (MSc)</strong> in Ollscoil Luimnigh, áit a bhfuil an bhéim ar fhiontraíocht agus ar chumarsáid chomh mór is atá sí ar an gcód.',
-    'about.p2': 'Is maith liom obair a dhéanamh trasna na ríomhaireachta ar fad — seachtain amháin is <strong>tiománaí gléis Linux i C</strong> atá ann, an chéad cheann eile is <strong>insamhail fisice in Unity</strong> é, nó <strong>tosach React</strong>, nó <strong>PCB do ríomhaire eitilte roicéid</strong> a ródú. Thosaigh mé amach ag múineadh ríomhchlárúcháin do dhaltaí óga ag CoderDojo, agus is breá liom fós smaointe casta a bhriseadh síos ina gcinn shimplí.',
+    'about.p2': 'Is maith liom obair a dhéanamh trasna na ríomhaireachta ar fad - seachtain amháin is <strong>tiománaí gléis Linux i C</strong> atá ann, an chéad cheann eile is <strong>insamhail fisice in Unity</strong> é, nó <strong>tosach React</strong>, nó <strong>PCB do ríomhaire eitilte roicéid</strong> a ródú. Thosaigh mé amach ag múineadh ríomhchlárúcháin do dhaltaí óga ag CoderDojo, agus is breá liom fós smaointe casta a bhriseadh síos ina gcinn shimplí.',
     'about.p3': 'Tá Gaeilge líofa agam agus táim ag tógáil <strong>Ardán</strong> faoi láthair, ardán sóisialta don teanga. Is teagascóir seoltóireachta cáilithe mé chomh maith, ag múineadh as Cuan Bhaile na Manach agus as Club Seoltóireachta an Chóibh.',
     'about.basedKey': 'Lonnaithe i',
     'about.basedVal': 'Corcaigh, Éire',
@@ -123,10 +123,10 @@ const STRINGS = {
     'journey.beyond': 'Cúpla rud eile',
 
     'contact.title': 'Tógaimis rud éigin.',
-    'contact.lead': "Oscailte d'intéirnseachtaí, do chomhoibriú agus d'fhadhbanna suimiúla — go háirithe aon rud a bhaineann le córais, crua-earraí, cluichí nó an Ghaeilge.",
+    'contact.lead': "Oscailte d'intéirnseachtaí, do chomhoibriú agus d'fhadhbanna suimiúla - go háirithe aon rud a bhaineann le córais, crua-earraí, cluichí nó an Ghaeilge.",
     'contact.email': 'Seol ríomhphost chugam',
 
-    'footer.made': 'Tógtha de láimh — ach níorbh iad mo lámha féin iad. Go raibh maith agat, Claude!'
+    'footer.made': 'Tógtha de láimh - ach níorbh iad mo lámha féin iad. Go raibh maith agat, Claude!'
   }
 };
 
@@ -149,7 +149,7 @@ const ROLES = {
 };
 
 const I18N = {
-  /* Current language — the early <head> script has already resolved and
+  /* Current language - the early <head> script has already resolved and
      stamped it on <html>, so trust that as the single source of truth. */
   get current() {
     const l = document.documentElement.getAttribute('lang');

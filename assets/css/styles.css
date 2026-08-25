@@ -1,12 +1,12 @@
 /* =========================================================================
-   Kyle Joyce — developer site
+   Kyle Joyce - developer site
    Design system + layout + motion
    Direction: Swiss/International grid system + editorial typography.
-   Flat ink/paper/red — no gradients, no blur, hard poster-style shadows.
+   Flat ink/paper/red - no gradients, no blur, hard poster-style shadows.
    ========================================================================= */
 
 :root {
-  /* palette — dark by default: ink paper + a single working colour (Cork red) */
+  /* palette - dark by default: ink paper + a single working colour (Cork red) */
   --bg:            #131210;
   --bg-2:          #1c1a15;
   --surface:       #1b1916;
@@ -36,14 +36,14 @@
   --ease: cubic-bezier(.16, 1, .3, 1);
   --off:  6px; /* hard-shadow offset unit */
 
-  /* tells the UA to render scrollbars/controls to match — and stops mobile
+  /* tells the UA to render scrollbars/controls to match - and stops mobile
      browsers flashing a hard blue box over every tapped link */
   color-scheme: dark;
   -webkit-tap-highlight-color: rgba(255, 90, 72, .18);
 }
 
 :root[data-theme="light"] {
-  /* palette — drafting paper + ink */
+  /* palette - drafting paper + ink */
   --bg:            #f6f4ee;
   --bg-2:          #ece8dc;
   --surface:       #fffefb;
@@ -289,7 +289,7 @@ body::before {
 @keyframes scrolldot { 0% { opacity: 0; top: 0; } 40% { opacity: 1; } 80% { opacity: 0; top: 40px; } 100% { opacity: 0; } }
 /* Needs vertical room *and* a wide enough column: on a phone the hero stack is
    taller than the viewport, so the cue and its "SCROLL" label landed on top of
-   the stats row. There's nothing to hint at on mobile anyway — you're already
+   the stats row. There's nothing to hint at on mobile anyway - you're already
    scrolling. */
 @media (min-height: 720px) and (min-width: 700px) { .hero__scroll { display: block; } }
 
@@ -304,7 +304,7 @@ body::before {
 }
 /* Hover-driven lift. Gated on a real pointer: on touch, :hover latches after a
    tap and leaves cards stuck in the pressed state until you tap elsewhere.
-   No `will-change` here either — it held ~17 permanent compositor layers on a
+   No `will-change` here either - it held ~17 permanent compositor layers on a
    page whose transform only ever runs under a mouse. */
 @media (hover: hover) {
   .card:hover, .skill-group:hover, .beyond__item:hover {
@@ -440,7 +440,7 @@ body::before {
 /* ---------- language swap ----------
    One motion across the page rather than a per-element shimmer: everything
    carrying translated text lifts out together, the other language settles in
-   from below. Opacity and a few px of travel only — no blur, in keeping with
+   from below. Opacity and a few px of travel only - no blur, in keeping with
    the flat poster look.
 
    Durations are mirrored by SWAP_OUT_MS / SWAP_IN_MS in main.js; change both. */
@@ -451,7 +451,7 @@ body::before {
   from { opacity: 0; transform: translateY(8px); }
 }
 
-/* Leaving is quicker than arriving, and eases in rather than out — the old
+/* Leaving is quicker than arriving, and eases in rather than out - the old
    language should get out of the way, not linger. */
 :root.is-lang-out .lang-fade { animation: lang-out .15s ease-in forwards; }
 :root.is-lang-in  .lang-fade { animation: lang-in .32s var(--ease) both; }
@@ -503,14 +503,14 @@ body::before {
 
   /* Absolute inside the fixed .nav, so the drawer hangs off whatever the bar
      actually measures. The old `position: fixed; top: 69px` was a guess at that
-     height and sat ~4px under it — and every control added to .nav__side (the
+     height and sat ~4px under it - and every control added to .nav__side (the
      language toggle, say) pushed the guess further out. */
   .nav__links {
     position: absolute; inset: 100% 0 auto 0; flex-direction: column; gap: 0;
     background: var(--bg); padding: 8px var(--pad) 20px; border-bottom: 1px solid var(--border);
     max-height: calc(100svh - 100%); overflow-y: auto; overscroll-behavior: contain;
     transform: translateY(-120%); opacity: 0; pointer-events: none;
-    /* visibility keeps the closed drawer out of the tab order and the a11y tree —
+    /* visibility keeps the closed drawer out of the tab order and the a11y tree -
        opacity alone still let you Tab into off-screen links. Delayed on close so
        it doesn't cut the slide short. */
     visibility: hidden;

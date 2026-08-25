@@ -1,12 +1,12 @@
-# Kyle Joyce — developer site
+# Kyle Joyce - developer site
 
 A clean, animated personal site for [github.com/Kilo27](https://github.com/Kilo27),
-built as a dependency-free static site so it hosts anywhere — including GitHub Pages.
+built as a dependency-free static site so it hosts anywhere - including GitHub Pages.
 
 ```
 index.html            markup + sections
 assets/css/styles.css design system, layout, motion
-assets/js/data.js     content (projects, skills, timeline) — edit this to update
+assets/js/data.js     content (projects, skills, timeline) - edit this to update
 assets/js/main.js     rendering, scroll reveals, typed roles, canvas background
 favicon.svg           KJ monogram
 .nojekyll             tells GitHub Pages to serve files as-is
@@ -14,7 +14,7 @@ favicon.svg           KJ monogram
 
 ## Editing content
 
-All copy lives in [`assets/js/data.js`](assets/js/data.js) — projects, skills, the
+All copy lives in [`assets/js/data.js`](assets/js/data.js) - projects, skills, the
 timeline and the "beyond the keyboard" items are plain arrays. No build step, no
 framework: change the data, refresh the page.
 
